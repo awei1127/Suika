@@ -6,12 +6,10 @@ public class BallState : MonoBehaviour
 {
     public bool IsDestroyed { get; set; } = false;
     public bool IsCurrentBall { get; set; } = true;
-    public BallNumber ballNumber;
+    public BallNumber ballNumber;   // 預設為0 需在編輯器手動設置
 
-    public void Initialize(bool isCurrentBall, BallNumber ballNumber)
+    public void Initialize(bool isCurrentBall)
     {
-        this.ballNumber = ballNumber;
-
         // 如果不是創建當前的球 則一開始就受重力影響
         if (!isCurrentBall)
         {
