@@ -8,13 +8,11 @@ public class BallState : MonoBehaviour
     public bool IsCurrentBall { get; set; } = true;
     public BallNumber ballNumber;   // 預設為0 需在編輯器手動設置
 
-    public void Initialize(bool isCurrentBall)
+    // 初始化球的方法 設定是否為 當前球 受重力影響 啟用碰撞器
+    public void Initialize(bool isCurrentBall, bool isKinematic, bool colliderEnabled)
     {
-        // 如果不是創建當前的球 則一開始就受重力影響
-        if (!isCurrentBall)
-        {
-            IsCurrentBall = isCurrentBall;
-            GetComponent<Rigidbody2D>().isKinematic = false;
-        }
+        IsCurrentBall = isCurrentBall;
+        GetComponent<Rigidbody2D>().isKinematic = isKinematic;
+        GetComponent<Collider2D>().enabled = colliderEnabled;
     }
 }

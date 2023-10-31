@@ -34,8 +34,11 @@ public class PlayController : MonoBehaviour
         // 如果有子物件
         if (transform.childCount > 0)
         {
-            // 讓子物件受重力影響 並將其父級設為空(切斷父子關係)
-            transform.GetChild(0).GetComponent<Rigidbody2D>().isKinematic = false;
+            // 讓子物件的 重力 碰撞器生效 父級為空(切斷父子關係)
+            bool isCurrentBall = true;
+            bool isKinematic = false;
+            bool colliderEnabled = true;
+            transform.GetChild(0).GetComponent<BallState>().Initialize(isCurrentBall, isKinematic, colliderEnabled);
             transform.GetChild(0).transform.parent = null;
         }
     }

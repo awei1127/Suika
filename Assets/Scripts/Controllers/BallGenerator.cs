@@ -7,16 +7,20 @@ public class BallGenerator : MonoBehaviour
 {
     public BallPrefabsData ballPrefabsData;
     public Transform player;
+    public Transform nextBallWindow;
     private const int RANDOM_MAX_VALUE = 4;
     private BallCollisionHandler currentBallHandler;
+    private GameObject nextBall;
     
     void Start()
     {
-        SpawnCurrentBall();
+        SpawnNextBall();
+        SetNextBallToCurrent();
+        SpawnNextBall();
     }
 
-    // 創建球
-    void SpawnCurrentBall()
+    // 創建 Next 球
+    void SpawnNextBall()
     {
         // 取得隨機整數
         int index = GetRandomInt();
@@ -25,15 +29,32 @@ public class BallGenerator : MonoBehaviour
         GameObject prefabToInstantiate = ballPrefabsData.ballPrefabs[index];
 
         // 創建球物件
-        GameObject newBall = Instantiate(prefabToInstantiate, player);
+        nextBall = Instantiate(prefabToInstantiate, nextBallWindow);
 
         // 引用這顆球的 BallState 組件並進行初始化
+        bool isCurrentBall = false;
+        bool isKinematic = true;
+        bool colliderEnabled = false;
+        BallState ballState = nextBall.GetComponent<BallState>();
+        ballState.Initialize(isCurrentBall, isKinematic, colliderEnabled);
+    }
+
+    // 將 Next 球設為玩家手上的球
+    void SetNextBallToCurrent()
+    {
+        // 將 nextBall 的父級設為 player 並重置位置
+        nextBall.transform.parent = player;
+        nextBall.transform.localPosition = Vector3.zero;
+
+        // 對 nextBall 重新初始化
         bool isCurrentBall = true;
-        BallState ballState = newBall.GetComponent<BallState>();
-        ballState.Initialize(isCurrentBall);
+        bool isKinematic = true;
+        bool colliderEnabled = false;
+        BallState ballState = nextBall.GetComponent<BallState>();
+        ballState.Initialize(isCurrentBall, isKinematic, colliderEnabled);
 
         // 引用這顆球的 BallCollisionHandler 組件並訂閱落下碰撞事件、同球碰撞事件
-        currentBallHandler = newBall.GetComponent<BallCollisionHandler>();
+        currentBallHandler = nextBall.GetComponent<BallCollisionHandler>();
         currentBallHandler.FallCollided += FallCollidedHandler;
         currentBallHandler.SameBallCollided += SameBallCollidedHandler;
     }
@@ -52,8 +73,10 @@ public class BallGenerator : MonoBehaviour
 
         // 引用這顆球的 BallState 組件並進行初始化
         bool isCurrentBall = false;
+        bool isKinematic = false;
+        bool colliderEnabled = true;
         BallState ballState = newBall.GetComponent<BallState>();
-        ballState.Initialize(isCurrentBall);
+        ballState.Initialize(isCurrentBall, isKinematic, colliderEnabled);
 
         // 引用這顆球的 BallCollisionHandler 組件並訂閱同球碰撞事件
         BallCollisionHandler mergedBallHandler = newBall.GetComponent<BallCollisionHandler>();
@@ -63,20 +86,19 @@ public class BallGenerator : MonoBehaviour
     // 落下碰撞事件處理器 (落下就生成球)
     void FallCollidedHandler(object sender, EventArgs e)
     {
-        Debug.Log("執行落下碰撞處理器！");
         // 取消訂閱
         if (currentBallHandler != null)
         {
             currentBallHandler.FallCollided -= FallCollidedHandler;
         }
-        // 創建球物件
-        SpawnCurrentBall();
+        // 把 Next 球物件設為當前 並創建一個新的 Next 球物件
+        SetNextBallToCurrent();
+        SpawnNextBall();
     }
 
     // 同球碰撞事件處理器 (同球碰撞就生成球)
     void SameBallCollidedHandler(object sender, SameBallCollidedEventArgs e)
     {
-        Debug.Log("執行同球碰撞處理器！");
         // 生成球
         SpawnUpgradedBall(e.midpoint, e.ballNumber);
     }
