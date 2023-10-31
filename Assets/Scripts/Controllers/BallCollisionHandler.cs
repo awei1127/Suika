@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class BallCollisionHandler : MonoBehaviour
 {
@@ -24,10 +27,24 @@ public class BallCollisionHandler : MonoBehaviour
             ballState.IsCurrentBall = false;
         }
 
-        // 若Tag相同 則發生同球碰撞事件
-        if (collision.gameObject.CompareTag("Ball"))
+        // 取得 BallNumber 枚舉的最後一個值
+        Array values = Enum.GetValues(typeof(BallNumber));
+        BallNumber lastValues = (BallNumber)values.GetValue(values.Length - 1);
+
+        // 若不是最後的球種
+        if (ballState.ballNumber != lastValues)
         {
-            OnSameBallCollided(collision);
+            // 取得碰撞物物件
+            GameObject collidedBall = collision.gameObject;
+
+            // 若碰撞物Tag為Ball 若球種相同 則發生同球碰撞事件
+            if (collidedBall.CompareTag("Ball"))
+            {
+                if (ballState.ballNumber == collidedBall.GetComponent<BallState>().ballNumber)
+                {
+                    OnSameBallCollided(collision);
+                }
+            }
         }
     }
 

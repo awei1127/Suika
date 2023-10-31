@@ -12,4 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48978e8cdbee15c4db29b963bb3482fc, type: 3}
   m_Name: BallPrefabsData
   m_EditorClassIdentifier: 
-  ballPrefabs: []
+  ballPrefabs:
+  - {fileID: 5998565932985817201, guid: 0554b2f2036a22d41be90f5ac6764568, type: 3}
+  - {fileID: 5998565932985817201, guid: 28f1a0a03f37fab4a8a15b1b026a7b7e, type: 3}
+  - {fileID: 5998565932985817201, guid: 7d8eed66b2c4c72438ce495cd68819c3, type: 3}
+  - {fileID: 5998565932985817201, guid: 1c5762cdfd798c34a8a463cece198c41, type: 3}
+  - {fileID: 5998565932985817201, guid: fbf4c2157a0bac541a4e11aad2f61260, type: 3}
+  - {fileID: 5998565932985817201, guid: 64c0af9b71768dc43802101039a996ac, type: 3}
+  - {fileID: 5998565932985817201, guid: 3a55ff99efed57843b8ca8dcbe3e67b0, type: 3}
+  - {fileID: 5998565932985817201, guid: a7846d888bca84f429ed3007f597652c, type: 3}
+  - {fileID: 5998565932985817201, guid: 07b22ac75bd53074ebe31ba8711e81db, type: 3}
+  - {fileID: 5998565932985817201, guid: 1216997d0ec76f64a9ba30dc8b7954ba, type: 3}
+  - {fileID: 5998565932985817201, guid: bb4a632c96a77b7448c1417c2e70f419, type: 3}
