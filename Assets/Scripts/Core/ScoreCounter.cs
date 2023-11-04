@@ -11,6 +11,7 @@ public class ScoreCounter : MonoBehaviour
     private int totalScore;
     public BallGenerator ballGenerator;
     public BallScores ballScores;
+    public event Action<int> ScoreChanged;
     
 
     void Start()
@@ -26,11 +27,17 @@ public class ScoreCounter : MonoBehaviour
         e.spawnedBallCollisionHandler.SameBallCollided += SameBallCollidedHandler;
     }
 
-    // 同球碰撞事件處理器 事件發生就計分
+    // 同球碰撞事件處理器 事件發生就計分 並發生分數更新事件
     void SameBallCollidedHandler(object sender, SameBallCollidedEventArgs e)
     {
         score = ballScores.scores.FirstOrDefault(ballscore => ballscore.ballNumber == e.ballNumber)?.score ?? 0;
         totalScore += score;
         Debug.Log("目前總分：" + totalScore);
+        OnScoreChanged(totalScore);
+    }
+
+    void OnScoreChanged(int totalScore)
+    {
+        ScoreChanged?.Invoke(totalScore);
     }
 }
