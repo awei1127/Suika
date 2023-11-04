@@ -23,7 +23,7 @@ public class PlayController : MonoBehaviour
             transform.position = new Vector2(transform.position.x - moveSpeed, transform.position.y);
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Release();
         }
