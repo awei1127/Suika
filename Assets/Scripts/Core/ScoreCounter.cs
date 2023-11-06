@@ -12,9 +12,9 @@ public class ScoreCounter : MonoBehaviour
     public BallGenerator ballGenerator;
     public BallScores ballScores;
     public event Action<int> ScoreChanged;
-    
 
-    void Start()
+
+    void Awake()
     {
         // 訂閱球產生器的創建球事件
         // 改用單例模式

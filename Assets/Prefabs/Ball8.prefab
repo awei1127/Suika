@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6811309481257685604}
   - component: {fileID: -3781727419907043280}
   m_Layer: 0
-  m_Name: BallPrefab1
+  m_Name: Ball8
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42999998, y: 0.42999998, z: 0.42999998}
+  m_LocalScale: {x: 1.8300002, y: 1.8300002, z: 1.8300002}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9451285, b: 0.2113207, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -174,4 +174,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c1312670bf24042b97301504cfa8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballNumber: 1
+  ballNumber: 8

@@ -8,13 +8,18 @@ public class ScoreView : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public ScoreCounter scoreCounter;
-    public int currentScore;
-    public int highestScore;
-    
+    private int currentScore;
+    private int highestScore;
+
+    void Awake()
+    {
+        // 訂閱分數更新事件
+        scoreCounter.ScoreChanged += ScoreChangedHandler;
+    }
+
     void Start()
     {
         UpdateScore(0);
-        scoreCounter.ScoreChanged += ScoreChangedHandler;
     }
 
     void UpdateScore(int newScore)
