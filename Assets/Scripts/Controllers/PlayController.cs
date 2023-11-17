@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayController : MonoBehaviour
 {
     public float moveSpeed;
+    private const float LEFT_EDGE = -1.95f;
+    private const float RIGHT_EDGE = 1.95f;
 
     void Start()
     {
@@ -15,12 +17,16 @@ public class PlayController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.position = new Vector2(transform.position.x + moveSpeed, transform.position.y);
+            float newX = transform.position.x + moveSpeed;
+            newX = Mathf.Min(newX, RIGHT_EDGE);
+            transform.position = new Vector2(newX, transform.position.y);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.position = new Vector2(transform.position.x - moveSpeed, transform.position.y);
+            float newX = transform.position.x - moveSpeed;
+            newX = Mathf.Max(newX, LEFT_EDGE);
+            transform.position = new Vector2(newX, transform.position.y);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
