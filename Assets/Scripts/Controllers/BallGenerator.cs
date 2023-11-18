@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BallGenerator : MonoBehaviour
 {
+    public static event Action<BallGenerator> BallGeneratorCreated; // 定義一個靜態事件，這個事件會在球生成器實例化時被觸發。
+
     public BallPrefabsData ballPrefabsData;
     public Transform player;
     public Transform nextBallWindow;
@@ -12,7 +14,18 @@ public class BallGenerator : MonoBehaviour
     private BallCollisionHandler currentBallCollisionHandler;
     private GameObject nextBall;
     public event EventHandler<SpawnBallEventArgs> SpawnBall;
-    
+
+    void Awake()
+    {
+        // 實例化時發生"創建球產生器事件"，以供導演物件訂閱"創建球事件"
+        BallGeneratorCreated?.Invoke(this);
+    }
+    void OnDestroy()
+    {
+        // 實例被刪除時取消所有的訂閱
+        BallGeneratorCreated = null;
+    }
+
     void Start()
     {
         SpawnNextBall();
@@ -33,11 +46,10 @@ public class BallGenerator : MonoBehaviour
         nextBall = Instantiate(prefabToInstantiate, nextBallWindow);
 
         // 引用這顆球的 BallState 組件並進行初始化
-        bool isCurrentBall = false;
         bool isKinematic = true;
         bool colliderEnabled = false;
         BallState ballState = nextBall.GetComponent<BallState>();
-        ballState.Initialize(isCurrentBall, isKinematic, colliderEnabled);
+        ballState.Initialize(BallStage.Next, isKinematic, colliderEnabled);
 
         // 引用這顆球的 BallCollisionHandler 組件並訂閱落下碰撞事件、同球碰撞事件
         currentBallCollisionHandler = nextBall.GetComponent<BallCollisionHandler>();
@@ -47,6 +59,7 @@ public class BallGenerator : MonoBehaviour
         // 發生創建球事件
         SpawnBallEventArgs e = new SpawnBallEventArgs();
         e.spawnedBallCollisionHandler = currentBallCollisionHandler;
+        e.spawnedBallPositionHandler = nextBall.GetComponent<BallPositionHandler>();
         OnSpawnBall(e);
     }
 
@@ -58,11 +71,10 @@ public class BallGenerator : MonoBehaviour
         nextBall.transform.localPosition = Vector3.zero;
 
         // 對 nextBall 重新初始化
-        bool isCurrentBall = true;
         bool isKinematic = true;
         bool colliderEnabled = false;
         BallState ballState = nextBall.GetComponent<BallState>();
-        ballState.Initialize(isCurrentBall, isKinematic, colliderEnabled);
+        ballState.Initialize(BallStage.Current, isKinematic, colliderEnabled);
     }
 
     // 根據傳入的位置以及原始球種 來創建升級後的球
@@ -78,11 +90,10 @@ public class BallGenerator : MonoBehaviour
         GameObject newBall = Instantiate(prefabToInstantiate, position, new Quaternion());   // 待改成隨機方向
 
         // 引用這顆球的 BallState 組件並進行初始化
-        bool isCurrentBall = false;
         bool isKinematic = false;
         bool colliderEnabled = true;
         BallState ballState = newBall.GetComponent<BallState>();
-        ballState.Initialize(isCurrentBall, isKinematic, colliderEnabled);
+        ballState.Initialize(BallStage.Inbox, isKinematic, colliderEnabled);
 
         // 引用這顆球的 BallCollisionHandler 組件並訂閱同球碰撞事件
         BallCollisionHandler mergedBallCollisionHandler = newBall.GetComponent<BallCollisionHandler>();
@@ -91,6 +102,7 @@ public class BallGenerator : MonoBehaviour
         // 發生創建球事件
         SpawnBallEventArgs e = new SpawnBallEventArgs();
         e.spawnedBallCollisionHandler = mergedBallCollisionHandler;
+        e.spawnedBallPositionHandler = newBall.GetComponent<BallPositionHandler>();
         OnSpawnBall(e);
     }
 

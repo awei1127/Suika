@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8229306742742202111}
   - component: {fileID: 6811309481257685604}
   - component: {fileID: -3781727419907043280}
+  - component: {fileID: -9763469893677218}
   m_Layer: 0
   m_Name: Ball8
   m_TagString: Ball
@@ -176,6 +177,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballNumber: 8
+  ballStage: 0
+--- !u!114 &-9763469893677218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5998565932985817201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219ed60e5a0524c4e863e90a0478e13c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8099092890653692849
 GameObject:
   m_ObjectHideFlags: 0

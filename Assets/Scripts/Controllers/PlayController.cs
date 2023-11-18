@@ -45,10 +45,9 @@ public class PlayController : MonoBehaviour
         if (holdingBall)
         {
             // 讓球的 重力 碰撞器生效 父級為空(切斷父子關係)
-            bool isCurrentBall = true;
             bool isKinematic = false;
             bool colliderEnabled = true;
-            holdingBall.GetComponent<BallState>().Initialize(isCurrentBall, isKinematic, colliderEnabled);
+            holdingBall.GetComponent<BallState>().Initialize(BallStage.Current, isKinematic, colliderEnabled);
             holdingBall.transform.parent = null;
         }
     }

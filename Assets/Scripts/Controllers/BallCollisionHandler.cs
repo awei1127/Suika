@@ -20,11 +20,11 @@ public class BallCollisionHandler : MonoBehaviour
     // 碰撞時 視條件讓事件發生
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // 若是當前的球 則只發生一次落下碰撞事件
-        if (ballState.IsCurrentBall)
+        // 若是當前的球 則只發生一次落下碰撞事件 加上條件: 且碰到的東西不是牆
+        if (ballState.ballStage == BallStage.Current)
         {
             OnFallCollided();
-            ballState.IsCurrentBall = false;
+            ballState.ballStage = BallStage.Inbox;
         }
 
         // 取得 BallNumber 枚舉的最後一個值
