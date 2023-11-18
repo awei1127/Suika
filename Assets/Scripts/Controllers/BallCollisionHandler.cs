@@ -20,8 +20,11 @@ public class BallCollisionHandler : MonoBehaviour
     // 碰撞時 視條件讓事件發生
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // 若是當前的球 則只發生一次落下碰撞事件 加上條件: 且碰到的東西不是牆
-        if (ballState.ballStage == BallStage.Current)
+        // 取得碰撞物物件
+        GameObject collidedObj = collision.gameObject;
+
+        // 若是當前的球 且碰到的東西不是牆 則只發生一次落下碰撞事件
+        if (ballState.ballStage == BallStage.Current && !collidedObj.CompareTag("Wall"))
         {
             OnFallCollided();
             ballState.ballStage = BallStage.Inbox;
@@ -34,13 +37,10 @@ public class BallCollisionHandler : MonoBehaviour
         // 若不是最後的球種
         if (ballState.ballNumber != lastValues)
         {
-            // 取得碰撞物物件
-            GameObject collidedBall = collision.gameObject;
-
             // 若碰撞物Tag為Ball 若球種相同 則發生同球碰撞事件
-            if (collidedBall.CompareTag("Ball"))
+            if (collidedObj.CompareTag("Ball"))
             {
-                if (ballState.ballNumber == collidedBall.GetComponent<BallState>().ballNumber)
+                if (ballState.ballNumber == collidedObj.GetComponent<BallState>().ballNumber)
                 {
                     OnSameBallCollided(collision);
                 }
