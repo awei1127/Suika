@@ -8,30 +8,32 @@ public class PlayController : MonoBehaviour
     private const float LEFT_EDGE = -1.95f;
     private const float RIGHT_EDGE = 1.95f;
 
-    void Start()
-    {
-        Application.targetFrameRate = 60;
-    }
-
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            float newX = transform.position.x + moveSpeed;
-            newX = Mathf.Min(newX, RIGHT_EDGE);
-            transform.position = new Vector2(newX, transform.position.y);
+            Debug.Log(GameDirector.Instance.CurrentGameState);
         }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (GameDirector.Instance.CurrentGameState == GameState.InGame)
         {
-            float newX = transform.position.x - moveSpeed;
-            newX = Mathf.Max(newX, LEFT_EDGE);
-            transform.position = new Vector2(newX, transform.position.y);
-        }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                float newX = transform.position.x + moveSpeed;
+                newX = Mathf.Min(newX, RIGHT_EDGE);
+                transform.position = new Vector2(newX, transform.position.y);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Release();
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                float newX = transform.position.x - moveSpeed;
+                newX = Mathf.Max(newX, LEFT_EDGE);
+                transform.position = new Vector2(newX, transform.position.y);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Release();
+            }
         }
     }
 

@@ -10,7 +10,7 @@ public class UIController : MonoBehaviour
     public void GameStart()
     {
         SceneManager.LoadScene("GameScene");
-        MenuView.Instance.TitlePanel.SetActive(false);
+        Time.timeScale = 1f;
         GameDirector.Instance.UpdateGameState(GameState.InGame);
     }
     // 開啟暫停面板
@@ -56,7 +56,14 @@ public class UIController : MonoBehaviour
     // 回到主選單 (當玩家在確認中按下是)
     public void GoMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
         GameDirector.Instance.UpdateGameState(GameState.MainMenu);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    // 重新開始遊戲
+    public void RestartGame()
+    {
+        GameDirector.Instance.UpdateGameState(GameState.InGame);
+        SceneManager.LoadScene("GameScene");
     }
 }

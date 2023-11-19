@@ -7,6 +7,7 @@ using TMPro;
 public class ScoreView : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI roundScoreText;
     public ScoreCounter scoreCounter;
     private int currentScore;
     private int highestScore;
@@ -39,6 +40,6 @@ public class ScoreView : MonoBehaviour
     {
         UpdateScore(newScore);
         scoreText.text = newScore.ToString();
+        roundScoreText.text = newScore.ToString();
     }
-
 }

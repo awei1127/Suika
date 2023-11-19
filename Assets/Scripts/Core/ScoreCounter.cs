@@ -8,7 +8,7 @@ using UnityEngine;
 public class ScoreCounter : MonoBehaviour
 {
     private int score;
-    private int totalScore;
+    public int TotalScore { get; private set; }
     public BallGenerator ballGenerator;
     public BallScores ballScores;
     public event Action<int> ScoreChanged;
@@ -17,7 +17,6 @@ public class ScoreCounter : MonoBehaviour
     void Awake()
     {
         // 訂閱球產生器的創建球事件
-        // 改用單例模式
         ballGenerator.SpawnBall += SpawnBallHandler;
     }
 
@@ -31,9 +30,9 @@ public class ScoreCounter : MonoBehaviour
     void SameBallCollidedHandler(object sender, SameBallCollidedEventArgs e)
     {
         score = ballScores.scores.FirstOrDefault(ballscore => ballscore.ballNumber == e.ballNumber)?.score ?? 0;
-        totalScore += score;
-        Debug.Log("目前總分：" + totalScore);
-        OnScoreChanged(totalScore);
+        TotalScore += score;
+        Debug.Log("目前總分：" + TotalScore);
+        OnScoreChanged(TotalScore);
     }
 
     void OnScoreChanged(int totalScore)

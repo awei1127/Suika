@@ -20,6 +20,7 @@ public class BallGenerator : MonoBehaviour
         // 實例化時發生"創建球產生器事件"，以供導演物件訂閱"創建球事件"
         BallGeneratorCreated?.Invoke(this);
     }
+
     void OnDestroy()
     {
         // 實例被刪除時取消所有的訂閱

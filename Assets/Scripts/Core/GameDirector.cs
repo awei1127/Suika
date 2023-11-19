@@ -17,23 +17,39 @@ public class GameDirector : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // 訂閱場景載入完畢事件 以便之後在場景載入完畢時 引用球產生器
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
+            return;
         }
-
-        // 訂閱球產生器的實例化事件 以便引用實例
-        BallGenerator.BallGeneratorCreated += BallGeneratorCreatedEventHandler;
     }
 
-    // 球產生器實例化處理器
-    private void BallGeneratorCreatedEventHandler(BallGenerator generator)
+    // 導演物件被刪除時 取消訂閱場景載入完畢事件
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // 場景載入完畢事件處理器
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         // 引用創建好的球產生器
-        ballGenerator = generator;
-        // 訂閱球產生器的創建球事件
-        ballGenerator.SpawnBall += SpawnBallEventHandler;
+        ballGenerator = FindObjectOfType<BallGenerator>();
+
+        if (ballGenerator != null)
+        {
+            // 訂閱球產生器的創建球事件
+            ballGenerator.SpawnBall += SpawnBallEventHandler;
+        }
+    }
+
+    void Start()
+    {
+        Application.targetFrameRate = 60;
     }
 
     // 創建球事件處理器
@@ -44,8 +60,18 @@ public class GameDirector : MonoBehaviour
     }
 
     // 到達上緣事件處理器
-    private void ReachUpEdgeEventHandler()
+    private void ReachUpEdgeEventHandler(object sender, EventArgs e)
     {
+        // 取得發生事件的物件 嘗試將 sender 轉型為 ballPositionHandler 類型
+        BallPositionHandler ballPositionHandler = sender as BallPositionHandler;
+
+        // 如果轉型成功 (如果發生事件的物件是 BallPositionHandler 類型)
+        if (ballPositionHandler != null)
+        {
+            // 取消訂閱上緣事件 以避免重複執行 EndGame
+            ballPositionHandler.ReachUpEdge -= ReachUpEdgeEventHandler;
+        }
+
         EndGame();
     }
 
@@ -57,13 +83,11 @@ public class GameDirector : MonoBehaviour
         }
 
         CurrentGameState = newGameState;
-
     }
 
     private void EndGame()
     {
+        MenuView.Instance.GameOverPanel.SetActive(true);
         UpdateGameState(GameState.GameOver);
-        Debug.Log("GGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
     }
-
 }

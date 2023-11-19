@@ -6,7 +6,7 @@ using UnityEngine;
 public class BallPositionHandler : MonoBehaviour
 {
     private const float UP_EDGE = 0.64f;
-    public event Action ReachUpEdge;
+    public event EventHandler ReachUpEdge;
     void Update()
     {
         if (transform.position.y > UP_EDGE && GetComponent<BallState>().ballStage == BallStage.Inbox)
@@ -19,6 +19,6 @@ public class BallPositionHandler : MonoBehaviour
     // 到達上緣事件
     void OnReachUpEdge()
     {
-        ReachUpEdge?.Invoke();
+        ReachUpEdge?.Invoke(this, EventArgs.Empty);
     }
 }
