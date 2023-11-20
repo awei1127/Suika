@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BallPositionHandler : MonoBehaviour
 {
-    private const float UP_EDGE = 0.64f;
+    private const float UP_EDGE = 1.14f;
     public event EventHandler ReachUpEdge;
     void Update()
     {

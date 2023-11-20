@@ -81,6 +81,9 @@ public class BallGenerator : MonoBehaviour
     // 根據傳入的位置以及原始球種 來創建升級後的球
     void SpawnUpgradedBall(Vector3 position, BallNumber originNumber)
     {
+        // 播放球升級音效
+        SoundManager.Instance.PlayBallUpgradeSound();
+        
         // 取得升級後的整數 (將枚舉值+1)
         int upgradedIndex = ((int)originNumber) + 1;
 
