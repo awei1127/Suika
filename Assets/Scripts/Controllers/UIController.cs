@@ -67,5 +67,6 @@ public class UIController : MonoBehaviour
     {
         GameDirector.Instance.UpdateGameState(GameState.InGame);
         SceneManager.LoadScene("GameScene");
+        Time.timeScale = 1f;
     }
 }
