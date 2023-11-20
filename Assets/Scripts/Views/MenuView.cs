@@ -9,6 +9,7 @@ public class MenuView : MonoBehaviour
     public GameObject PausePanel;
     public GameObject ConfirmPanel;
     public GameObject GameOverPanel;
+    public GameObject InputPanel;
 
     public static MenuView Instance;
 

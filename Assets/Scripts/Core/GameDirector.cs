@@ -88,6 +88,7 @@ public class GameDirector : MonoBehaviour
     private void EndGame()
     {
         MenuView.Instance.GameOverPanel.SetActive(true);
+        MenuView.Instance.InputPanel.SetActive(false);
         UpdateGameState(GameState.GameOver);
     }
 }

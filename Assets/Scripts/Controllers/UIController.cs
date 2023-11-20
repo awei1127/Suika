@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 0f;
         MenuView.Instance.PausePanel.SetActive(true);
+        MenuView.Instance.InputPanel.SetActive(false);
         GameDirector.Instance.UpdateGameState(GameState.Paused);
     }
 
@@ -26,6 +27,7 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 1f;
         MenuView.Instance.PausePanel.SetActive(false);
+        MenuView.Instance.InputPanel.SetActive(true);
         GameDirector.Instance.UpdateGameState(GameState.InGame);
     }
 
