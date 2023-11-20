@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 1822886886422808196}
   - component: {fileID: 6516661677700987870}
   - component: {fileID: 2089649579425402629}
+  - component: {fileID: 6708054431035274161}
   m_Layer: 5
   m_Name: OptionPanel
   m_TagString: Untagged
@@ -192,6 +193,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.2
+--- !u!114 &6708054431035274161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024812574028351655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fba0238556fd8448364e21bd937207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmVolumeSlider: {fileID: 8826742005083074197}
+  seVolumeSlider: {fileID: 1974837724305169219}
 --- !u!1 &1093518573359376127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,16 +1293,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6708054431035274161}
+    - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideOptionPanel
+      value: SaveSetting
       objectReference: {fileID: 0}
     - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIController, Assembly-CSharp
+      value: VolumeController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: VolumeController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4191030200103678901, guid: ab520fc3bb511844895a233d1fccd822, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

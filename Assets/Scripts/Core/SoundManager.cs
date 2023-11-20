@@ -35,12 +35,12 @@ public class SoundManager : MonoBehaviour
     // 播放按鈕SE方法
     public void PlayButtonClickSound()
     {
-        audioSource.PlayOneShot(buttonClickSound);
+        audioSource.PlayOneShot(buttonClickSound, PlayerPrefs.GetFloat("SEVolume", 1.0f));
     }
 
     // 播放球升級SE方法
     public void PlayBallUpgradeSound()
     {
-        audioSource.PlayOneShot(ballUpgradeSound);
+        audioSource.PlayOneShot(ballUpgradeSound, PlayerPrefs.GetFloat("SEVolume", 1.0f));
     }
 }
