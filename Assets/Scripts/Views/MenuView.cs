@@ -10,6 +10,7 @@ public class MenuView : MonoBehaviour
     public GameObject ConfirmPanel;
     public GameObject GameOverPanel;
     public GameObject InputPanel;
+    public GameObject NextPanel;
 
     public static MenuView Instance;
 
